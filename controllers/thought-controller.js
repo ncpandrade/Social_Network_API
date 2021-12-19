@@ -1,6 +1,50 @@
 const { Thought, User } = require('../models');
 
 const thoughtController = {
+
+//get all thoughts
+  getAllThoughts(req, res) {
+    Thought.find({})
+    .select("-__v")
+      .then(dbThoughtData => res.json(dbThoughtData))
+      .catch(err => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  },
+
+  getThoughtById({ params }, res ){
+    Thought.findOne({ _id: params.id })
+      .then((dbThoughtData) => {
+        // If no Thought is found, send 404
+        if (!dbThoughtData) {
+          res.status(404).json({ message: "No Thought found with this id!" });
+          return;
+        }
+        res.json(dbThoughtData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  },
+
+    // update thought by id
+    updateThought({ params, body }, res) {
+      Thought.findOneAndUpdate({ _id: params.id }, body, { new: true })
+        .then((dbThoughtData) => {
+          if (!dbThoughtData) {
+            res.status(404).json({ message: "No Thought found with this id!" });
+            return;
+          }
+          res.json(dbThoughtData);
+        })
+        .catch((err) => res.status(400).json(err));
+    },
+
+
+
+
   // add thought to user
   addThought({ params, body }, res) {
     console.log(body);
