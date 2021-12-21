@@ -43,7 +43,6 @@ const ThoughtSchema = new Schema({
         default: Date.now,
         get: (createdAtVal) => dateFormat(createdAtVal),
     },
-    //user that created this thought????
     username: {
         type: String,
         required: true,
@@ -58,11 +57,11 @@ const ThoughtSchema = new Schema({
   }
 );
 
-ReactionSchema.virtual('reactionCount').get(function() {
+ThoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
   });
 
   const Thought = model('Thought', ThoughtSchema);
-  const Reaction = model('Reaction', ReactionSchema);
+  
 
 module.exports = Thought;
