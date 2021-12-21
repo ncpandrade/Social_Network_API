@@ -70,10 +70,13 @@ const userController = {
       .catch((err) => res.status(400).json(err));
   },
     // Add friend
-    addFriend({ params }, res) {
+    addFriend({ params, body }, res) {
+      //find user data by email
+      // User.findOne({email: body.email})
+      //user._id instead of body.friendId
       User.findOneAndUpdate(
-        { _id: params.userId },
-        { $push: { friends: params.friendId } },
+        { _id: params.id },
+        { $push: { friends: body.friendId } },
         { new: true }
       )
         .then(dbUserData => {
