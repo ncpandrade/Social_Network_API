@@ -20,7 +20,7 @@ router.route('/:userId').post(addThought);
 router.route('/:userId/:thoughtId')
 .delete(removeThought);
 
-// get all thoughts
+// get all thoughts 
 router.route('/').get(getAllThoughts);
 
 //get thoughts by id
@@ -29,7 +29,7 @@ router
 .get(getThoughtById)
 .put(updateThought);
 
-// // /api/thoughts/:thoughtId/reactions
+// /api/thoughts/:thoughtId/reactions
 router
 .route('/:thoughtId/reactions')
 .post(addReaction)
