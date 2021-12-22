@@ -75,7 +75,7 @@ const userController = {
       // User.findOne({email: body.email})
       //user._id instead of body.friendId
       User.findOneAndUpdate(
-        { _id: params.id },
+        { _id: params.userId },
         { $push: { friends: body.friendId } },
         { new: true }
       )
